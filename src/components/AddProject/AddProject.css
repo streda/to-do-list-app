@@ -1,0 +1,49 @@
+/* AddProject.css */
+
+.add-project-form {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .add-project-form input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+    font-size: 16px;
+  }
+  
+  .add-project-form button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #43b6ef;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px;
+  }
+  
+  .add-project-form button:hover {
+    background-color: #369bcf;
+  }
+  
+  @media screen and (max-width: 500px) {
+    .add-project-form {
+      flex-direction: column;
+    }
+  
+    .add-project-form input {
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+  }
+  

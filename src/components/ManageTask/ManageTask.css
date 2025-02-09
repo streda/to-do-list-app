@@ -1,0 +1,44 @@
+/* ManageTask.css */
+
+.assignment-list {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.empty-assignment-list {
+  padding: 5px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+@media screen and (max-device-width: 500px), screen and (max-width: 500px) {
+  .assignment-list {
+    width: 90%;
+  }
+}
+
+
+
+/* .assignment-list {
+    width: 80%;
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .empty-assignment-list {
+    padding: 5px;
+    margin-bottom: 10px;
+  }
+  
+  @media screen and (max-device-width: 500px), screen and (max-width: 500px) {
+    .assignment-list {
+      width: 90%;
+    }
+  }
+   */

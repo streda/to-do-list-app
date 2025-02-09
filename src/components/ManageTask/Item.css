@@ -1,0 +1,345 @@
+/* Item.css */
+
+.todoText {
+  overflow: hidden;
+}
+
+.todoItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 5px;
+  background-color: #fff;
+  padding: 10px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.todoItem button {
+  background-color: inherit;
+  border: none;
+}
+
+.todoText,
+.todoEdit {
+  width: 70%;
+  text-align: left;
+}
+
+.todoText p {
+  margin: 0;
+}
+
+.todoText.done {
+  opacity: 0.5;
+  text-decoration: line-through;
+  font-style: italic;
+}
+
+.todoEdit input {
+  background-color: inherit;
+  border: none;
+  width: 100%;
+  border-bottom: 1px solid black;
+}
+
+.todoIcons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+}
+
+.todoIcons > div {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  border-radius: 50%;
+  transition: all 0.5s ease;
+}
+
+.todoIcons > div > button {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.todoIcons > div > button > svg {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 20px;
+  height: 20px;
+  transition: all 0.5s ease;
+}
+
+.todoIcons > div:hover {
+  background-color: #1c3431;
+  border-radius: 8px;
+}
+
+.todoIcons > div:hover svg {
+  color: #67979f;
+}
+
+.todoPriority {
+  position: relative;
+}
+
+.todoPriority__container {
+  display: grid;
+  gap: 3px;
+  padding: 3px;
+  border-radius: 5px;
+  position: absolute;
+  right: 20px;
+  opacity: 1;
+}
+
+.todoPriority__container > span {
+  width: 30px;
+  height: 30px;
+  box-shadow: 0 0 3px black;
+  border-radius: 50%;
+  position: absolute;
+  top: -45px;
+  z-index: 1;
+}
+
+.todoPriority__container > span:hover {
+  box-shadow: 0 0 5px black;
+}
+
+.todoPriority__container > span:nth-child(1) {
+  left: -80px;
+}
+
+.todoPriority__container > span:nth-child(2) {
+  left: -55px;
+}
+
+.todoPriority__container > span:nth-child(3) {
+  left: -30px;
+}
+
+.todoPriority__container > span:nth-child(4) {
+  left: -5px;
+}
+
+.todoPriority__container > span:nth-child(5) {
+  left: 20px;
+}
+
+@media screen and (max-device-width: 500px), screen and (max-width: 500px) {
+  .todoList {
+    width: 90%;
+  }
+  .todoIcons {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+  }
+  .todoItem {
+    padding: 5px 15px;
+  }
+
+  .todoPriority__container > span:nth-child(n) {
+    left: 30px;
+  }
+
+  .todoPriority__container > span:nth-child(1) {
+    top: 10px;
+  }
+
+  .todoPriority__container > span:nth-child(2) {
+    top: -10px;
+  }
+  .todoPriority__container > span:nth-child(3) {
+    top: -30px;
+  }
+
+  .todoPriority__container > span:nth-child(4) {
+    top: -50px;
+  }
+
+  .todoPriority__container > span:nth-child(5) {
+    top: -70px;
+  }
+}
+
+
+
+
+
+/* .todoText {
+    overflow: hidden;
+  }
+
+
+  .todoItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+    padding: 15px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  
+  .todoItem button {
+    background-color: inherit;
+    border: none;
+  }
+  
+  .todoText,
+  .todoEdit {
+    width: 70%;
+    text-align: left;
+  }
+  
+  .todoText p {
+    margin: 0;
+  }
+  
+  .todoText.done {
+    opacity: 0.5;
+    text-decoration: line-through;
+    font-style: italic;
+  }
+  
+  .todoEdit input {
+    background-color: inherit;
+    border: none;
+    width: 100%;
+    border-bottom: 1px solid black;
+  }
+  
+  .todoIcons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+    z-index: 2;
+  }
+  
+  .todoIcons > div {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    border-radius: 50%;
+    transition: all 0.5s ease;
+  }
+  
+  .todoIcons > div > button {
+    display: flex;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    border-radius: 50%;
+  }
+  
+  .todoIcons > div > button > svg {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    transition: all 0.5s ease;
+  }
+  
+  .todoIcons > div:hover {
+    background-color: #1c3431;
+    border-radius: 8px;
+  }
+  
+  .todoIcons > div:hover svg {
+    color: #67979f;
+  }
+  .todoPriority {
+    position: relative;
+  }
+  
+  .todoPriority__container {
+    display: grid;
+    gap: 3px;
+    padding: 3px;
+    border-radius: 5px;
+    position: absolute;
+    right: 20px;
+    opacity: 1;
+  }
+  
+  .todoPriority__container > span {
+    width: 30px;
+    height: 30px;
+    box-shadow: 0 0 3px black;
+    border-radius: 50%;
+    position: absolute;
+    top: -45px;
+    z-index: 1;
+  }
+  
+  .todoPriority__container > span:hover {
+    box-shadow: 0 0 5px black;
+  }
+  
+  .todoPriority__container > span:nth-child(1) {
+    left: -80px;
+  }
+  
+  .todoPriority__container > span:nth-child(2) {
+    left: -55px;
+  }
+  .todoPriority__container > span:nth-child(3) {
+    left: -30px;
+  }
+  
+  .todoPriority__container > span:nth-child(4) {
+    left: -5px;
+  }
+  
+  .todoPriority__container > span:nth-child(5) {
+    left: 20px;
+  }
+  
+  @media screen and (max-device-width: 500px), screen and (max-width: 500px) {
+    .todoList {
+      width: 90%;
+    }
+    .todoIcons {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+    }
+    .todoItem {
+      padding: 5px 15px;
+    }
+  
+    .todoPriority__container > span:nth-child(n) {
+      left: 30px;
+    }
+  
+    .todoPriority__container > span:nth-child(1) {
+      top: 10px;
+    }
+  
+    .todoPriority__container > span:nth-child(2) {
+      top: -10px;
+    }
+    .todoPriority__container > span:nth-child(3) {
+      top: -30px;
+    }
+  
+    .todoPriority__container > span:nth-child(4) {
+      top: -50px;
+    }
+  
+    .todoPriority__container > span:nth-child(5) {
+      top: -70px;
+    }
+  }
+   */

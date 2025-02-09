@@ -1,0 +1,59 @@
+/* TaskStatus.css */
+
+/* .task-status {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.task-status button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  background-color: #43b6ef;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.task-status button:hover {
+  background-color: #369bcf;
+}
+
+.task-status button.active {
+  background-color: #3cbf00;
+} */
+
+
+
+
+/* It will take up 50% of the width of its parent */
+/* Auto sets the left and right margins to equal values, centering the filter-task-status horizontally within its parent*/
+
+
+.filter-task-status {
+    display: flex;
+    justify-content: center;
+    width: 50%; 
+    margin: 0 auto; 
+    height: 50px;
+  }
+  
+  /* Style the ToDo buttons  */
+  .filter-task-status-btn {
+    background-color: inherit; 
+    margin: 0 10px;
+    border: none;
+    color: lightgrey;
+  }
+
+  /* When the current clicked button is active, let it be illuminated with rgb(181, 244, 45) color */
+  
+  .filter-task-status-btn.active {
+    color: rgb(181, 244, 45);
+  }
+  
