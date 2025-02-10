@@ -6,7 +6,8 @@ import "./ManageTask.css";
 // For local use only. For production this will be coming from an environment variable
 // const API_BASE_URL = "http://localhost:5005"; // ✅ Define API URL once at the top
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+// const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+const API_BASE_URL = process.env.REACT_APP_API_URL || "http://3.144.93.39:5000";
 
 const ManageTask = ({ assignments, setAssignments, assignmentStatus, deleteTask }) => {
   const assignmentArray = assignments.filter((item) =>
