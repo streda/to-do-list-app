@@ -10,7 +10,13 @@ app.use(express.json());
 // const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || "http://localhost:3000";
 // app.use(cors({ origin: ALLOWED_ORIGIN }));
 //
-app.use(cors({ origin: "*" }));  // Allow all origins temporarily
+// app.use(cors({ origin: "*" }));  // Allow all origins temporarily
+
+app.use(cors({
+    origin: '*', // Allow all domains (you can restrict to your frontend URL)
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: 'Content-Type,Authorization'
+}));
 
 const pool = new Pool({
   user: process.env.DB_USER,
