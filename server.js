@@ -7,9 +7,10 @@ const { v4: uuidv4 } = require("uuid");
 const app = express();
 app.use(express.json());
 // app.use(cors({ origin: "http://localhost:3000" }));
-const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || "http://localhost:3000";
-app.use(cors({ origin: ALLOWED_ORIGIN }));
-
+// const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || "http://localhost:3000";
+// app.use(cors({ origin: ALLOWED_ORIGIN }));
+//
+app.use(cors({ origin: "*" }));  // Allow all origins temporarily
 
 const pool = new Pool({
   user: process.env.DB_USER,
