@@ -7,7 +7,7 @@ import ManageProject from '../ManageProject/ManageProject';
 import './ProjectDashboard.css';
 
 // For local use only. For production this will be coming from an environment variable
-const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5005";
+const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
 const ProjectDashboard = () => {
   const [clientProjectArray, setClientProjectArray] = useState([]);

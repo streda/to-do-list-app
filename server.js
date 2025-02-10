@@ -12,10 +12,11 @@ app.use(express.json());
 //
 // app.use(cors({ origin: "*" }));  // Allow all origins temporarily
 
+// Allow requests from Amplify frontend
 app.use(cors({
-    origin: '*', // Allow all domains (you can restrict to your frontend URL)
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    allowedHeaders: 'Content-Type,Authorization'
+  origin: ["https://main.d8cefkg5o9i5z.amplifyapp.com", "http://localhost:3000"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 const pool = new Pool({
@@ -192,5 +193,5 @@ app.delete("/projects/:id", async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 5005;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
