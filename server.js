@@ -6,11 +6,6 @@ const { v4: uuidv4 } = require("uuid");
 
 const app = express();
 app.use(express.json());
-// app.use(cors({ origin: "http://localhost:3000" }));
-// const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || "http://localhost:3000";
-// app.use(cors({ origin: ALLOWED_ORIGIN }));
-//
-// app.use(cors({ origin: "*" }));  // Allow all origins temporarily
 
 // Allow requests from Amplify frontend
 app.use(cors({
@@ -117,65 +112,76 @@ app.post("/projects/:projectId/tasks", async (req, res) => {
 });
 
 app.put("/tasks/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { name, status } = req.body;
+    try {
+        const { id } = req.params;
+        const { name, status, done } = req.body; // Accept `done`
 
-    console.log("Incoming update request for Task ID:", id);
-    console.log("Request Body:", req.body);  // ✅ Log the incoming request data
+        console.log("Incoming update request for Task ID:", id);
+        console.log("Request Body:", req.body);
 
-    // Ensure at least one field is provided for update
-    if (!name && !status) {
-      return res.status(400).json({ error: "At least one field (name or status) must be provided." });
+        // Ensure at least one field is provided for update
+        if (!name && !status && done === undefined) {
+            return res.status(400).json({ error: "At least one field (name, status, or done) must be provided." });
+        }
+
+        // Check if task exists
+        const taskCheck = await pool.query("SELECT * FROM tasks WHERE id = $1", [id]);
+        if (taskCheck.rows.length === 0) {
+            return res.status(404).json({ error: "Task not found" });
+        }
+
+        // Build dynamic update query
+        const fields = [];
+        const values = [];
+        let query = "UPDATE tasks SET ";
+
+        if (name) {
+            fields.push("name = $" + (values.length + 1));
+            values.push(name);
+        }
+        if (status) {
+            fields.push("status = $" + (values.length + 1));
+            values.push(status);
+        }
+        if (done !== undefined) { // ✅ Add done field update
+            fields.push("done = $" + (values.length + 1));
+            values.push(done);
+        }
+
+        query += fields.join(", ") + " WHERE id = $" + (values.length + 1) + " RETURNING *";
+        values.push(id);
+
+        console.log("Executing Query:", query, "With Values:", values);
+
+        const updatedTask = await pool.query(query, values);
+
+        if (updatedTask.rows.length === 0) {
+            return res.status(404).json({ error: "Task not found" });
+        }
+
+        console.log("Updated Task:", updatedTask.rows[0]);
+        res.json(updatedTask.rows[0]); // ✅ Send back the updated task
+    } catch (err) {
+        console.error("❌ Error updating task:", err);
+        res.status(500).json({ error: "Failed to update task" });
     }
-
-    // Check if task exists
-    const taskCheck = await pool.query("SELECT * FROM tasks WHERE id = $1", [id]);
-    if (taskCheck.rows.length === 0) {
-      return res.status(404).json({ error: "Task not found" });
-    }
-
-    // Build dynamic update query
-    const fields = [];
-    const values = [];
-    let query = "UPDATE tasks SET ";
-
-    if (name) {
-      fields.push("name = $" + (values.length + 1));
-      values.push(name);
-    }
-    if (status) {
-      fields.push("status = $" + (values.length + 1));
-      values.push(status);
-    }
-
-    query += fields.join(", ") + " WHERE id = $" + (values.length + 1) + " RETURNING *";
-    values.push(id);
-
-    console.log("Executing Query:", query, "With Values:", values); // ✅ Log SQL Query
-
-    const updatedTask = await pool.query(query, values);
-
-    if (updatedTask.rows.length === 0) {
-      return res.status(404).json({ error: "Task not found" });
-    }
-
-    console.log("Updated Task:", updatedTask.rows[0]); // ✅ Log success case
-
-    res.json(updatedTask.rows[0]); // ✅ Send back the updated task
-  } catch (err) {
-    console.error("❌ Error updating task:", err);
-    res.status(500).json({ error: "Failed to update task" });
-  }
 });
+
 
 app.delete("/tasks/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const deletedTask = await pool.query("DELETE FROM tasks WHERE id = $1 RETURNING *", [id]);
-    if (deletedTask.rows.length === 0) return res.status(404).json({ error: "Task not found" });
-    res.status(204).send();
+
+    if (deletedTask.rows.length === 0) {
+      console.log(`❌ Task not found for deletion: ${id}`);
+      return res.status(404).json({ error: "Task not found" });
+    }
+
+    console.log(`✅ Task deleted: ${id}`);
+    res.status(200).json({ message: `Task ${id} deleted successfully` });
   } catch (err) {
+    console.error(`⚠️ Error deleting task: ${err.message}`);
     res.status(500).json({ error: "Failed to delete task" });
   }
 });
@@ -184,22 +190,21 @@ app.delete("/projects/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const projectCheck = await pool.query("SELECT * FROM projects WHERE id = $1", [id]);
-    if (projectCheck.rows.length === 0) return res.status(404).json({ error: "Project not found" });
+
+    if (projectCheck.rows.length === 0) {
+      console.log(`❌ Project not found for deletion: ${id}`);
+      return res.status(404).json({ error: "Project not found" });
+    }
 
     await pool.query("DELETE FROM projects WHERE id = $1", [id]);
-    res.status(204).send();
+    console.log(`✅ Project deleted: ${id}`);
+    res.status(200).json({ message: `Project ${id} deleted successfully` });
   } catch (err) {
+    console.error(`⚠️ Error deleting project: ${err.message}`);
     res.status(500).json({ error: "Failed to delete project" });
   }
 });
 
-// const PORT = process.env.PORT || 5000;
-// app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
-
-// app.listen(5000, () => {
-//   console.log("Server running on port 5000");
-// });
 
 app.listen(5000, '0.0.0.0', () => {
   console.log("Server running on port 5000 (IPv4 and IPv6)");
