@@ -7,6 +7,7 @@ const { v4: uuidv4 } = require("uuid");
 const app = express();
 app.use(express.json());
 
+
 // Allow requests from Amplify frontend
 app.use(cors({
   origin: ["https://main.d8cefkg5o9i5z.amplifyapp.com", "http://localhost:3000"],
