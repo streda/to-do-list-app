@@ -6,7 +6,10 @@ import AddProject from '../AddProject/AddProject';
 import ManageProject from '../ManageProject/ManageProject';
 import './ProjectDashboard.css';
 
-const API_BASE_URL = "https://api.to-dolist.xyz";
+// const API_BASE_URL = "https://api.to-dolist.xyz" || "http://localhost:5001";
+// const API_BASE_URL = "http://localhost:5001";
+const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5001";
+
 
 const ProjectDashboard = () => {
   const [clientProjectArray, setClientProjectArray] = useState([]);
